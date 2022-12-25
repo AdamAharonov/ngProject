@@ -1,0 +1,38 @@
+<app-page-header
+  title="contacts"
+  icon="bi bi-people-fill text-warning"
+  description="company employees details"
+></app-page-header>
+
+<table class="table table-bordered align-middle mt-3 text-center">
+  <thead>
+    <tr class="text-warning bg-light">
+      <th></th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Joined the corporation</th>
+      <th>Phones</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="contacts.length; else nocontact" class="bg-light">
+    <tr *ngFor="let cont of contacts; index as idx;">
+      <td class="text-dark" style="font-size: 400px;"><i class={{cont.icon}}></i></td>
+      <td>{{cont.name}}</td>
+      <td>
+        <a [href]="'mailto:'+ cont.email"> {{cont.email}} </a>
+      </td>
+      <td>{{cont.addToCorp | date:"dd/MM/yyyy"  }}</td>
+      <td>
+        <ul *ngIf="cont.phones.length; else nophones">
+          <li *ngFor="let phone of cont.phones;" >
+            <a [href]="'tel:'+ phone" >{{ phone }}</a>
+          </li>
+        </ul>
+        
+        <ng-template #nophones><span>no phones</span></ng-template>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #nocontact><i>no contacts</i></ng-template>

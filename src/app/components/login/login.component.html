@@ -1,0 +1,93 @@
+<div class="d-flex flex-column container min-vh-100">
+  <div class="my-auto shadow-lg p-3 bg-light rounded">
+    <div class="row">
+      <div class="col-8 m-auto">
+        <form
+          #loginForm="ngForm"
+          (ngSubmit)="onSubmit(loginForm)"
+          novalidate
+          autocomplete="off"
+        >
+          <div class="text-center mb-4">
+            <h1 class="h3 mb-3 font-weight-normal">
+              Royal <i class="bi bi-chevron-double-up text-warning"></i> CRM
+            </h1>
+            <p>Login with your account</p>
+          </div>
+
+          <div class="form-group mb-4">
+            <div class="form-group">
+              <input
+                #emailF="ngModel"
+                [(ngModel)]="form.email"
+                name="email"
+                required
+                [ngClass]="{
+                  'is-invalid': emailF.invalid && emailF.touched,
+                  'is-valid': emailF.touched && emailF.valid
+                }"
+                type="email"
+                placeholder="john@doe.com"
+                id="email"
+                class="form-control"
+                autocomplete="username"
+              />
+              <div class="invalid-feedback">Valid email is required</div>
+            </div>
+          </div>
+
+          <div class="form-group mb-4">
+            <div class="form-group">
+              <input
+                #passwordF="ngModel"
+                [(ngModel)]="form.password"
+                name="password"
+                required
+                [ngClass]="{
+                  'is-invalid': passwordF.invalid && passwordF.touched,
+                  'is-valid': passwordF.touched && passwordF.valid
+                }"
+                type="password"
+                id="password"
+                class="form-control"
+                autocomplete="current-password"
+              />
+              <div class="invalid-feedback">Password is required</div>
+            </div>
+          </div>
+
+          <div class="text-danger" *ngIf="error">
+            {{ error }}
+          </div>
+
+          <button
+            [disabled]="loginForm.invalid"
+            class="btn btn-lg btn-warning text-light btn-block"
+            type="submit"
+          >
+            Sign in
+          </button>
+        </form>
+
+        <p class="my-3">You also can simply:</p>
+
+        <button
+          appSignWithGoogle
+          class="btn btn-lg btn-warning btn-block text-light"
+        >
+          Log in with Google
+        </button>
+
+        <div class="container-fluid mt-5 p-2">
+          <div class="row g-0">
+            <div class="col mx-auto text-center justify-content-around">
+              <span class="text-muted"> Adam Aharonov</span>
+              <span class="fw-bold text-muted mx-2">&copy;</span>
+              <span class="text-muted">{{ today | date: "YYYY" }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

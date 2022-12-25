@@ -1,0 +1,92 @@
+
+<app-page-header
+  title="customers"
+  icon="bi bi-emoji-sunglasses-fill text-warning"
+  description="list of our customers"
+></app-page-header>
+
+<div class="row mt-4 justify-content-center">
+  <p class="text-center mb-4">Search Costumer By :</p>
+  <div class="col-lg-3">
+  <div class="input-group flex-nowrap">
+  <span class="input-group-text text-warning bg-light" id="addon-wrapping"><i class="bi bi-search"></i></span>
+  <input [(ngModel)]="inputFN" type="text" class="form-control" placeholder="First Name" aria-label="Firstname" aria-describedby="addon-wrapping">
+</div>
+    </div>
+  <div class="col-lg-3">
+  <div class="input-group flex-nowrap">
+  <span class="input-group-text text-warning bg-light" id="addon-wrapping"><i class="bi bi-search"></i></span>
+  <input [(ngModel)]="inputLN" type="text" class="form-control" placeholder="Last Name" aria-label="Lastname" aria-describedby="addon-wrapping">
+</div>
+  </div>
+  <div class="col-lg-3">
+    <div class="input-group flex-nowrap">
+  <span class="input-group-text text-warning bg-light" id="addon-wrapping"><i class="bi bi-search"></i></span>
+  <input [(ngModel)]="inputPN" type="text" class="form-control" placeholder="Phone Number" aria-label="Phonenumber" aria-describedby="addon-wrapping">
+</div>
+  </div>
+ 
+</div>
+
+<div class="row mt-3">
+  <div class="col-12">
+    <div *ngIf="
+  customers$ | async | customersFinder: 'firstName':inputFN | customersFinder: 'lastName':inputLN | customersFinder: 'phone':inputPN as customers; 
+  else loading">
+      <table *ngIf="customers.length; else noCustomers" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#No.</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+          </tr>
+        </thead>
+        <tbody class="bg-light">
+          <tr *ngFor="let customer of customers; index as idx">
+            <td>
+              {{idx + 1}}
+               <a class="ms-1 text-success " [routerLink]="['./', customer.id]">
+                <i class="bi bi-eye-fill"> </i>
+              </a>
+              <a class="ms-3 text-warning" [routerLink]="['./', customer.id, 'edit']">
+                <i class="bi bi-pencil-fill"> </i>
+              </a>
+              <a class="ms-3 text-warning" (click)="remove(customer.id)">
+                <i class="bi bi-trash-fill"></i>
+              </a>
+            </td>
+            <td>
+              <a [routerLink]="['./', customer.id]"> {{customer.firstName}} </a>
+            </td>
+            <td>
+               <a [routerLink]="['./', customer.id]"> {{customer.lastName}}</a>
+            </td>
+            <td>
+              <a [href]="'mailto:'  + customer.email"> {{customer.email}} </a>
+            </td>
+            <td>
+              <a [href]="'tel:' + customer.phone">{{customer.phone}}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #noCustomers>
+  <p class="mt-4">No Customers.</p>
+</ng-template>
+
+
+ <div class="col-12 mt-4">
+    <a routerLink="new" class="btn btn-warning">
+      <i class="bi bi-person-plus me-2 text-light"> </i>Add New Customer
+    </a>
+  </div>
+
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>

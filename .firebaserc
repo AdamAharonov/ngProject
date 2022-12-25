@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fbnewp-b5e18": {
+      "hosting": {
+        "royal-crm": [
+          "fbnewp-b5e18"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fbnewp-b5e18"
+  }
+}
